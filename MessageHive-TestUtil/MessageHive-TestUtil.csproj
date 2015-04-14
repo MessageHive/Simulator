@@ -45,6 +45,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client.cs" />
+    <Compile Include="Conversation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Conversation.Designer.cs">
+      <DependentUpon>Conversation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -58,6 +64,9 @@
     <Compile Include="protobuf\message.Serializer.cs" />
     <Compile Include="protobuf\ProtocolParser.cs" />
     <Compile Include="Utilities.cs" />
+    <EmbeddedResource Include="Conversation.resx">
+      <DependentUpon>Conversation.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>

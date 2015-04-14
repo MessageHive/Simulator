@@ -1,4 +1,5 @@
-﻿using System.Net.Security;
+﻿using System;
+using System.Net.Security;
 using System.Net.Sockets;
 using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
@@ -6,7 +7,7 @@ using System.Windows.Forms;
 
 namespace MessageHive_TestUtil
 {
-    class ClientCredentials
+    public class ClientCredentials
     {
         private string uid;
         private string token;
@@ -36,8 +37,9 @@ namespace MessageHive_TestUtil
         }
     }
 
-    class Client
+    public class Client : IDisposable
     {
+        bool disposed = false;
         private string host;
         private int port;
         private ClientCredentials credentials;
@@ -87,16 +89,31 @@ namespace MessageHive_TestUtil
             return sslStream;
         }
 
-        ~Client()
+        public void Dispose()
         {
-            if (_client != null)
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        // Protected implementation of Dispose pattern. 
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+
+            if (disposing)
             {
-                _client.Close();
+                if (_client != null)
+                {
+                    _client.Close();
+                }
+                if (_stream != null)
+                {
+                    _stream.Close();
+                }
             }
-            if (_stream != null)
-            {
-                _stream.Close();
-            }
+
+            disposed = true;
         }
     }
 }

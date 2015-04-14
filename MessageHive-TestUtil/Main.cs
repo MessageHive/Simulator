@@ -29,8 +29,11 @@ namespace MessageHive_TestUtil
                 textPort.Focus();
                 return;
             }
-            Client client = new Client(host, port, credentials);
-            SslStream stream = client.Connect();
+            Conversation form = new Conversation(host, port, credentials);
+            form.Show();
+            form.Focus();
+            textUID.Text = "";
+            textToken.Text = "";
         }
     }
 }
